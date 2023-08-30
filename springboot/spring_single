@@ -1,0 +1,23 @@
+public void sendSMSRequest() throws ParseException {
+	RestTemplate restTemplate = new RestTemplate();
+	
+	JSONObject request = new JSONObject();
+	request.put("username", "your_username");
+	request.put("password", "your_password");
+	request.put("to", "2519xxxxxxxx");
+	request.put("text", "your message");
+	
+	HttpHeaders headers = new HttpHeaders();
+	headers.setContentType(MediaType.APPLICATION_JSON);
+
+	List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
+	messageConverters.add(new StringHttpMessageConverter());
+	restTemplate.setMessageConverters(messageConverters);
+	
+	HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
+	ResponseEntity<String> response = restTemplate.postForEntity(
+		"http://197.156.70.196:9095/api/send_sms", 
+		entity, 
+		String.class
+	);	
+}
