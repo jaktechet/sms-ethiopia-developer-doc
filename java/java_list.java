@@ -18,12 +18,13 @@ public class SmsService {
                 username, password, to.toString(), message);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://197.156.70.196:9095/api/send_list"))
-                .header("Accept", "application/json")
+                .uri(new URI("your_list_url"))
+                .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        
         // Handle the response
     }
 }

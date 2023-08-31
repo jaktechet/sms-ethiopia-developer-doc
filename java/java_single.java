@@ -17,8 +17,8 @@ public class SmsService {
                 username, password, to, message);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://197.156.70.196:9095/api/send_sms"))
-                .header("Accept", "application/json")
+                .uri(new URI("your_single_url"))
+                .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 

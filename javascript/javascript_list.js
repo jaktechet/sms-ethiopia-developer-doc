@@ -1,5 +1,5 @@
 function sendSmsToMultiplePhones() {
-    const url = 'http://197.156.70.196:9095/api/send_list';
+    const url = 'your_list_url';
     const data = {
         username: 'your_username',
         password: 'your_password',

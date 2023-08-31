@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class SmsScreen extends StatelessWidget {
   void sendSmsToSinglePhone() async {
-    final url = Uri.parse('http://197.156.70.196:9095/api/send_sms');
+    final url = Uri.parse('your_single_url');
     final headers = {'Accept': 'application/json'};
     final data = {
       'username': 'your_username',

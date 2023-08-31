@@ -9,11 +9,11 @@ This project demonstrates how to integrate an SMS service using various programm
   - [Prerequisites](#prerequisites)
   - [Usage](#usage)
     - [1. Laravel](#1-laravel)
-      - [Sending SMS to a Single Phone](#sending-sms-to-a-single-phone)
-      - [Sending SMS to a Multiple Phone](#sending-sms-to-a-multiple-phone)
-    - [2. React (JavaScript)](#2-react-javascript)
-      - [Sending SMS to a Single Phone with react](#sending-sms-to-a-single-phone-with-react)
-      - [Sending SMS to a Multiple Phone with react](#sending-sms-to-a-multiple-phone-with-react)
+      - [Sending SMS to a Single Phone with Laravel](#sending-sms-to-a-single-phone-with-laravel)
+      - [Sending SMS to a Multiple Phone with Laravel](#sending-sms-to-a-multiple-phone-with-laravel)
+    - [2. Java](#2-java)
+      - [Sending SMS to a Single Phone with Java](#sending-sms-to-a-single-phone-with-java)
+      - [Sending SMS to a Multiple Phone with Java](#sending-sms-to-a-multiple-phone-with-java)
     - [3. Flutter (Dart)](#3-flutter-dart)
       - [Sending SMS to a Single Phone with flutter](#sending-sms-to-a-single-phone-with-flutter)
       - [Sending SMS to a Multiple Phone with flutter](#sending-sms-to-a-multiple-phone-with-flutter)
@@ -23,12 +23,15 @@ This project demonstrates how to integrate an SMS service using various programm
     - [5. PHP (with `curl`)](#5-php-with-curl)
       - [Sending SMS to a Single Phone with PHP](#sending-sms-to-a-single-phone-with-php)
       - [Sending SMS to a Multiple Phone with PHP](#sending-sms-to-a-multiple-phone-with-php)
-    - [6. Spring Boot (Java)](#6-spring-boot-java)
+    - [6. PHP (with `file_get_contents()`)](#6-php-with-file_get_contents)
+      - [Sending SMS to a Single Phone with PHP file\_get\_contents()](#sending-sms-to-a-single-phone-with-php-file_get_contents)
+      - [Sending SMS to a Single Phone with PHP file\_get\_contents()](#sending-sms-to-a-single-phone-with-php-file_get_contents-1)
+    - [7. Spring Boot (Java)](#7-spring-boot-java)
       - [Sending SMS to a Single Phone with Spring Boot](#sending-sms-to-a-single-phone-with-spring-boot)
       - [Sending SMS to a Multiple Phone with Spring Boot](#sending-sms-to-a-multiple-phone-with-spring-boot)
-    - [7. Java](#7-java)
-      - [Sending SMS to a Single Phone with Java](#sending-sms-to-a-single-phone-with-java)
-      - [Sending SMS to a Multiple Phone with Java](#sending-sms-to-a-multiple-phone-with-java)
+    - [8. Curl](#8-curl)
+      - [Sending SMS to a Single Phone with Curl](#sending-sms-to-a-single-phone-with-curl)
+      - [Sending SMS to a Multiple Phone with Curl](#sending-sms-to-a-multiple-phone-with-curl)
   - [Customization](#customization)
 
 ## Prerequisites
@@ -42,99 +45,107 @@ Choose the programming language and framework you are familiar with to send SMS 
 ### 1. Laravel
 ---
 
-#### Sending SMS to a Single Phone
+#### Sending SMS to a Single Phone with Laravel
 
 ```php
 use Illuminate\Support\Facades\Http;
 
 $response = Http::withHeaders([
-    'Accept' => 'application/json',
-])->post('http://197.156.70.196:9095/api/send_sms', [
+    'Content-Type' => 'application/json',
+])->post('your_single_url', [
     'username' => 'your_username',
     'password' => 'your_password',
     'to' => '2519xxxxxxxxx',
     'message' => 'your_message',
 ]);
 
-// Handle the response as needed
+// Handle the Response
 ```
 
-#### Sending SMS to a Multiple Phone
+#### Sending SMS to a Multiple Phone with Laravel
 
 ```php
 use Illuminate\Support\Facades\Http;
 
 $response = Http::withHeaders([
-    'Accept' => 'application/json',
-])->post('http://197.156.70.196:9095/api/send_list', [
+    'Content-Type' => 'application/json',
+])->post('your_list_url', [
     'username' => 'your_username',
     'password' => 'your_password',
     'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
     'message' => 'your_message',
 ]);
 
-// Handle the response as needed
+// Handle the Response
 ```
+
+
+### 2. Java
 ---
-### 2. React (JavaScript)
 
-#### Sending SMS to a Single Phone with react
+#### Sending SMS to a Single Phone with Java
+```java
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.List;
 
-```js
-import axios from 'axios';
+public class SmsService {
+    public static void main(String[] args) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
 
-const SmsComponent = () => {
-  const sendSmsToSinglePhone = async () => {
-    const data = {
-      username: 'your_username',
-      password: 'your_password',
-      to: '2519xxxxxxxxx',
-      message: 'your_message',
-    };
+        String username = "your_username";
+        String password = "your_password";
+        String to = "2519xxxxxxxxx";
+        String message = "your_message";
 
-    try {
-      const response = await axios.post('http://197.156.70.196:9095/api/send_sms', data, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-      // Handle the response as needed
-    } catch (error) {
-      // Handle errors
+        String requestBody = String.format("{'username': '%s', 'password': '%s', 'to': '%s', 'message': '%s'}",
+                username, password, to, message);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI("your_single_sms"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        // Handle the response
     }
-  };
-};
+}
 
-export default SmsComponent;
 ```
+#### Sending SMS to a Multiple Phone with Java
+```java
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Arrays;
+import java.util.List;
 
-#### Sending SMS to a Multiple Phone with react
-```js
-import axios from 'axios';
+public class SmsService {
+    public static void main(String[] args) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
 
-const SmsComponent = () => {
-  const sendSmsToMultiplePhone = async () => {
-    const data = {
-      username: 'your_username',
-      password: 'your_password',
-      to: ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-      message: 'your_message',
-    };
+        String username = "your_username";
+        String password = "your_password";
+        List<String> to = Arrays.asList("2519xxxxxxxxx", "2519xxxxxxxxx", "2519xxxxxxxxx");
+        String message = "your_message";
 
-    try {
-      const response = await axios.post('http://197.156.70.196:9095/api/send_list', data, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-      // Handle the response as needed
-    } catch (error) {
-      // Handle errors
+        String requestBody = String.format("{'username': '%s', 'password': '%s', 'to': %s, 'message': '%s'}",
+                username, password, to.toString(), message);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI("your_list_url"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        // Handle the response
     }
-  };
-};
-
-export default SmsComponent;
+}
 ```
 
 ### 3. Flutter (Dart)
@@ -148,8 +159,8 @@ import 'dart:convert';
 
 class SmsScreen extends StatelessWidget {
   void sendSmsToSinglePhone() async {
-    final url = Uri.parse('http://197.156.70.196:9095/api/send_sms');
-    final headers = {'Accept': 'application/json'};
+    final url = Uri.parse('your_single_url');
+    final headers = {'Content-Type': 'application/json'};
     final data = {
       'username': 'your_username',
       'password': 'your_password',
@@ -191,8 +202,8 @@ import 'dart:convert';
 
 class SmsScreen extends StatelessWidget {
   void sendSmsToMultiplePhones() async {
-    final url = Uri.parse('http://197.156.70.196:9095/api/send_list');
-    final headers = {'Accept': 'application/json'};
+    final url = Uri.parse('your_list_url');
+    final headers = {'Content-Type': 'application/json'};
     final data = {
       'username': 'your_username',
       'password': 'your_password',
@@ -233,7 +244,7 @@ void main() {
 
 ```js
 function sendSmsToSinglePhone() {
-    const url = 'http://197.156.70.196:9095/api/send_single';
+    const url = 'your_single_url';
     const data = {
         username: 'your_username',
         password: 'your_password',
@@ -244,7 +255,6 @@ function sendSmsToSinglePhone() {
     fetch(url, {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
@@ -262,7 +272,7 @@ sendSmsToSinglePhone();
 #### Sending SMS to a Multiple Phone with javascript
 ```js
 function sendSmsToMultiplePhones() {
-    const url = 'http://197.156.70.196:9095/api/send_list';
+    const url = 'your_list_url';
     const data = {
         username: 'your_username',
         password: 'your_password',
@@ -273,7 +283,6 @@ function sendSmsToMultiplePhones() {
     fetch(url, {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
@@ -295,22 +304,28 @@ sendSmsToMultiplePhones();
 #### Sending SMS to a Single Phone with PHP
 
 ```php
-$curlHandle = curl_init();
 
+$url = 'your_single_url';
 $data = [
     'username' => 'your_username',
     'password' => 'your_password',
-    'to' => '2519xxxxxxxxx',
-    'message' => 'your_message',
+    'to' => '251xxxxxxxxx',
+    'text' => 'your_message',
 ];
+$jsonData = json_encode($data);
 
-curl_setopt($curlHandle, CURLOPT_URL, 'http://197.156.70.196:9095/api/send_sms');
-curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curlHandle, CURLOPT_POST, 1);
-curl_setopt($curlHandle, CURLOPT_POSTFIELDS, http_build_query($data));
-curl_setopt($curlHandle, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+$curlHandle = curl_init($url);
+curl_setopt($curlHandle, CURLOPT_POST, true);
+curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($jsonData)
+]);
 
+curl_setopt($curlHandle, CURLOPT_POSTFIELDS,$jsonData);
+curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($curlHandle);
+curl_close($curlHandle);
+
 
 if ($response === false) {
     echo 'Curl error: ' . curl_error($curlHandle);
@@ -318,36 +333,111 @@ if ($response === false) {
     // Handle the response
 }
 
-curl_close($curlHandle);
+
 ```
 #### Sending SMS to a Multiple Phone with PHP
 ```php
-$curlHandle = curl_init();
-
+$url = 'your_list_url';
 $data = [
     'username' => 'your_username',
     'password' => 'your_password',
     'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-    'message' => 'your_message',
+    'text' => 'your_message',
 ];
+$jsonData = json_encode($data);
 
-curl_setopt($curlHandle, CURLOPT_URL, 'http://197.156.70.196:9095/api/send_list');
-curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curlHandle, CURLOPT_POST, 1);
-curl_setopt($curlHandle, CURLOPT_POSTFIELDS, http_build_query($data));
-curl_setopt($curlHandle, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+$curlHandle = curl_init($url);
+curl_setopt($curlHandle, CURLOPT_POST, true);
+curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($jsonData)
+]);
 
+curl_setopt($curlHandle, CURLOPT_POSTFIELDS,$jsonData);
+curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($curlHandle);
+curl_close($curlHandle);
+
 
 if ($response === false) {
     echo 'Curl error: ' . curl_error($curlHandle);
 } else {
     // Handle the response
 }
-curl_close($curlHandle);
 ```
 
-### 6. Spring Boot (Java)
+
+### 6. PHP (with `file_get_contents()`)
+---
+#### Sending SMS to a Single Phone with PHP file_get_contents()
+
+```php
+$url = 'your_single_url';
+$data = [
+    'username' => 'your_username',
+    'password' => 'your_password',
+    'to' => '251xxxxxxxxx',
+    'text' => 'your_message',
+];
+
+$jsonData = json_encode($data);
+
+$contextOptions = [
+    'http' => [
+        'method' => 'POST',
+        'header' => [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($jsonData)
+        ],
+        'content' => $jsonData
+    ]
+];
+
+$context = stream_context_create($contextOptions);
+$response = file_get_contents($url, false, $context);
+
+if ($response === false) {
+    echo 'Request failed';
+} else {
+    // Handle the response as needed
+}
+```
+
+#### Sending SMS to a Single Phone with PHP file_get_contents()
+```php
+$url = 'your_list_url';
+$data = [
+    'username' => 'your_username',
+    'password' => 'your_password',
+    'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
+    'text' => 'your_message',
+];
+
+$jsonData = json_encode($data);
+
+$contextOptions = [
+    'http' => [
+        'method' => 'POST',
+        'header' => [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($jsonData)
+        ],
+        'content' => $jsonData
+    ]
+];
+
+$context = stream_context_create($contextOptions);
+$response = file_get_contents($url, false, $context);
+
+if ($response === false) {
+    echo 'Request failed';
+} else {
+    // Handle the response as needed
+}
+```
+
+
+### 7. Spring Boot (Java)
 ---
 
 #### Sending SMS to a Single Phone with Spring Boot
@@ -370,7 +460,7 @@ public void sendSMSRequest() throws ParseException {
 	
 	HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
 	ResponseEntity<String> response = restTemplate.postForEntity(
-		"http://197.156.70.196:9095/api/send_sms", 
+		"your_single_url", 
 		entity, 
 		String.class
 	);	
@@ -397,82 +487,48 @@ public void sendJsonRequest() throws ParseException {
 	
 	HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
 	ResponseEntity<String> response = restTemplate.postForEntity(
-		"http://197.156.70.196:9095/api/send_list", 
+		"your_list_url", 
 		entity, 
 		String.class
 	);
 }
 ```
 
-### 7. Java
+### 8. Curl
 ---
 
-#### Sending SMS to a Single Phone with Java
-```java
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.List;
+#### Sending SMS to a Single Phone with Curl
 
-public class SmsService {
-    public static void main(String[] args) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-
-        String username = "your_username";
-        String password = "your_password";
-        String to = "2519xxxxxxxxx";
-        String message = "your_message";
-
-        String requestBody = String.format("{'username': '%s', 'password': '%s', 'to': '%s', 'message': '%s'}",
-                username, password, to, message);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://197.156.70.196:9095/api/send_sms"))
-                .header("Accept", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        // Handle the response
-    }
-}
-
+```php
+curl -X POST "your_single_url" \
+     -H "Content-Type: application/json" \
+     -d "username=your_username" \
+     -d "password=your_password" \
+     -d "to=2519xxxxxxxxx" \
+     -d "message=your_message"
 ```
-#### Sending SMS to a Multiple Phone with Java
-```java
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.Arrays;
-import java.util.List;
 
-public class SmsService {
-    public static void main(String[] args) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
+#### Sending SMS to a Multiple Phone with Curl
 
-        String username = "your_username";
-        String password = "your_password";
-        List<String> to = Arrays.asList("2519xxxxxxxxx", "2519xxxxxxxxx", "2519xxxxxxxxx");
-        String message = "your_message";
-
-        String requestBody = String.format("{'username': '%s', 'password': '%s', 'to': %s, 'message': '%s'}",
-                username, password, to.toString(), message);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI("http://197.156.70.196:9095/api/send_list"))
-                .header("Accept", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        // Handle the response
-    }
-}
+```php
+curl -X POST "your_list_url" \
+     -H "Content-Type: application/json" \
+     -d "username=your_username" \
+     -d "password=your_password" \
+     -d "to[]=2519xxxxxxxxx" \
+     -d "to[]=2519xxxxxxxxx" \
+     -d "to[]=2519xxxxxxxxx" \
+     -d "message=your_message"
 ```
 
 
 ## Customization
+---
 
-- Depending on your SMS service provider, you might need to adjust the API endpoint URLs, request parameters, and response handling.
+- Depending on your SMS service credential, you need to change the following placeholders:
+  - your_single_url
+  - your_list_url" 
+  - your_username 
+  - your_password
+  - to
+  - text.

@@ -1,5 +1,5 @@
-curl -X POST "http://197.156.70.196:9095/api/send_sms" \
-     -H "Accept: application/json" \
+curl -X POST "your_single_url" \
+     -H "Content-Type: application/json" \
      -d "username=your_username" \
      -d "password=your_password" \
      -d "to=2519xxxxxxxxx" \

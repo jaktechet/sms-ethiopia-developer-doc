@@ -1,5 +1,6 @@
 function sendSmsToSinglePhone() {
-    const url = 'http://197.156.70.196:9095/api/send_single';
+    const url = 'your_single_url';
+
     const data = {
         username: 'your_username',
         password: 'your_password',

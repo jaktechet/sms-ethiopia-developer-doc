@@ -16,7 +16,7 @@ public void sendJsonRequest() throws ParseException {
 	
 	HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
 	ResponseEntity<String> response = restTemplate.postForEntity(
-		"http://197.156.70.196:9095/api/send_list", 
+		"your_list_url", 
 		entity, 
 		String.class
 	);
