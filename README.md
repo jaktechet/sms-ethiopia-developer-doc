@@ -2,10 +2,10 @@
 
 This project demonstrates how to integrate an SMS service using various programming languages and frameworks. It includes implementations for sending SMS to single and multiple phone numbers via different API endpoints.
 
-## Table of Contents
+# Table of Contents
 
 - [SMS Service Integration](#sms-service-integration)
-  - [Table of Contents](#table-of-contents)
+- [Table of Contents](#table-of-contents)
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
   - [Nodejs](#nodejs)
@@ -117,8 +117,6 @@ axios.request(config)
     });
 ```
 ## Laravel
-
-
 ### # Sending SMS to a Single Phone with Laravel
 
 ```php
@@ -152,7 +150,6 @@ $response = Http::withHeaders([
 
 // Handle the Response
 ```
-
 
 ## Java
 ### # Sending SMS to a Single Phone with Java
@@ -700,8 +697,6 @@ Console.WriteLine(await response.Content.ReadAsStringAsync());
 
 
 ## Curl
-
-
 ### # Sending SMS to a Single Phone with Curl
 
 ```php
@@ -728,8 +723,6 @@ curl -X POST "your_list_url" \
 
 
 # Customization
-
-
 - Depending on your SMS service credential, you need to change the following placeholders:
   - your_single_url
   - your_list_url" 
