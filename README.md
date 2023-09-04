@@ -6,46 +6,120 @@ This project demonstrates how to integrate an SMS service using various programm
 
 - [SMS Service Integration](#sms-service-integration)
   - [Table of Contents](#table-of-contents)
-  - [Prerequisites](#prerequisites)
-  - [Usage](#usage)
-    - [1. Laravel](#1-laravel)
-      - [Sending SMS to a Single Phone with Laravel](#sending-sms-to-a-single-phone-with-laravel)
-      - [Sending SMS to a Multiple Phone with Laravel](#sending-sms-to-a-multiple-phone-with-laravel)
-    - [2. Java](#2-java)
-      - [Sending SMS to a Single Phone with Java](#sending-sms-to-a-single-phone-with-java)
-      - [Sending SMS to a Multiple Phone with Java](#sending-sms-to-a-multiple-phone-with-java)
-    - [3. Flutter (Dart)](#3-flutter-dart)
-      - [Sending SMS to a Single Phone with flutter](#sending-sms-to-a-single-phone-with-flutter)
-      - [Sending SMS to a Multiple Phone with flutter](#sending-sms-to-a-multiple-phone-with-flutter)
-    - [4. JavaScript (with `fetch`)](#4-javascript-with-fetch)
-      - [Sending SMS to a Single Phone with javascript](#sending-sms-to-a-single-phone-with-javascript)
-      - [Sending SMS to a Multiple Phone with javascript](#sending-sms-to-a-multiple-phone-with-javascript)
-    - [5. PHP (with `curl`)](#5-php-with-curl)
-      - [Sending SMS to a Single Phone with PHP](#sending-sms-to-a-single-phone-with-php)
-      - [Sending SMS to a Multiple Phone with PHP](#sending-sms-to-a-multiple-phone-with-php)
-    - [6. PHP (with `file_get_contents()`)](#6-php-with-file_get_contents)
-      - [Sending SMS to a Single Phone with PHP file\_get\_contents()](#sending-sms-to-a-single-phone-with-php-file_get_contents)
-      - [Sending SMS to a Single Phone with PHP file\_get\_contents()](#sending-sms-to-a-single-phone-with-php-file_get_contents-1)
-    - [7. Spring Boot (Java)](#7-spring-boot-java)
-      - [Sending SMS to a Single Phone with Spring Boot](#sending-sms-to-a-single-phone-with-spring-boot)
-      - [Sending SMS to a Multiple Phone with Spring Boot](#sending-sms-to-a-multiple-phone-with-spring-boot)
-    - [8. Curl](#8-curl)
-      - [Sending SMS to a Single Phone with Curl](#sending-sms-to-a-single-phone-with-curl)
-      - [Sending SMS to a Multiple Phone with Curl](#sending-sms-to-a-multiple-phone-with-curl)
-  - [Customization](#customization)
+- [Prerequisites](#prerequisites)
+- [Usage](#usage)
+  - [Nodejs](#nodejs)
+    - [# Sending SMS to a Single Phone with Nodejs](#-sending-sms-to-a-single-phone-with-nodejs)
+    - [# Sending SMS to a Multiple Phone with Nodejs](#-sending-sms-to-a-multiple-phone-with-nodejs)
+  - [Laravel](#laravel)
+    - [# Sending SMS to a Single Phone with Laravel](#-sending-sms-to-a-single-phone-with-laravel)
+    - [# Sending SMS to a Multiple Phone with Laravel](#-sending-sms-to-a-multiple-phone-with-laravel)
+  - [Java](#java)
+    - [# Sending SMS to a Single Phone with Java](#-sending-sms-to-a-single-phone-with-java)
+    - [# Sending SMS to a Multiple Phone with Java](#-sending-sms-to-a-multiple-phone-with-java)
+  - [Go](#go)
+    - [# Sending SMS to a Single Phone with Go](#-sending-sms-to-a-single-phone-with-go)
+    - [# Sending SMS to a Multiple Phone with Go](#-sending-sms-to-a-multiple-phone-with-go)
+  - [Python](#python)
+    - [# Sending SMS to a Single Phone with Python](#-sending-sms-to-a-single-phone-with-python)
+    - [# Sending SMS to Multiple Phone with Python](#-sending-sms-to-multiple-phone-with-python)
+  - [Dart](#dart)
+    - [# Sending SMS to a Single Phone with Dart](#-sending-sms-to-a-single-phone-with-dart)
+    - [# Sending SMS to a Multiple Phone with Dart](#-sending-sms-to-a-multiple-phone-with-dart)
+  - [JavaScript](#javascript)
+    - [# Sending SMS to a Single Phone with javascript](#-sending-sms-to-a-single-phone-with-javascript)
+    - [# Sending SMS to a Multiple Phone with javascript](#-sending-sms-to-a-multiple-phone-with-javascript)
+  - [PHP (with `curl`)](#php-with-curl)
+    - [# Sending SMS to a Single Phone with PHP - curl](#-sending-sms-to-a-single-phone-with-php---curl)
+    - [# Sending SMS to a Multiple Phone with PHP - curl](#-sending-sms-to-a-multiple-phone-with-php---curl)
+  - [PHP (with `file_get_contents()`)](#php-with-file_get_contents)
+    - [# Sending SMS to a Single Phone with PHP - file\_get\_contents()](#-sending-sms-to-a-single-phone-with-php---file_get_contents)
+    - [# Sending SMS to a Single Phone with PHP - file\_get\_contents()](#-sending-sms-to-a-single-phone-with-php---file_get_contents-1)
+  - [Spring Boot (Java)](#spring-boot-java)
+    - [# Sending SMS to a Single Phone with Spring Boot](#-sending-sms-to-a-single-phone-with-spring-boot)
+    - [# Sending SMS to a Multiple Phone with Spring Boot](#-sending-sms-to-a-multiple-phone-with-spring-boot)
+  - [CSharp (C#)](#csharp-c)
+    - [# Sending SMS to a Single Phone with Curl](#-sending-sms-to-a-single-phone-with-curl)
+    - [# Sending SMS to a Multiple Phone with Curl](#-sending-sms-to-a-multiple-phone-with-curl)
+  - [Curl](#curl)
+    - [# Sending SMS to a Single Phone with Curl](#-sending-sms-to-a-single-phone-with-curl-1)
+    - [# Sending SMS to a Multiple Phone with Curl](#-sending-sms-to-a-multiple-phone-with-curl-1)
+- [Customization](#customization)
 
-## Prerequisites
+# Prerequisites
 
 - Internet connection to access the SMS service API
 - Service credentials, username and password, given from the SMS Ethiopia
-## Usage
+# Usage
 
 Choose the programming language and framework you are familiar with to send SMS to single or multiple phone numbers.
 
-### 1. Laravel
----
+## Nodejs
 
-#### Sending SMS to a Single Phone with Laravel
+### # Sending SMS to a Single Phone with Nodejs
+```js
+const axios = require('axios');
+let data = JSON.stringify({
+    "username": "your_username",
+    "password": "your_password",
+    "to": "9xxxxxxxxx",
+    "text": "your_message"
+});
+
+let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'your_single_url',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    data : data
+};
+
+axios.request(config)
+    .then((response) => {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+```
+### # Sending SMS to a Multiple Phone with Nodejs
+```js
+const axios = require('axios');
+let data = JSON.stringify({
+    "username": "your_username",
+    "password": "your_password",
+    "to": [
+        "9xxxxxxxxx",
+        "9xxxxxxxxx",
+        "9xxxxxxxxx"
+    ],
+    "text": "your_message"
+});
+
+let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'your_list_url',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    data : data
+};
+
+axios.request(config)
+    .then((response) => {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+```
+## Laravel
+
+
+### # Sending SMS to a Single Phone with Laravel
 
 ```php
 use Illuminate\Support\Facades\Http;
@@ -62,7 +136,7 @@ $response = Http::withHeaders([
 // Handle the Response
 ```
 
-#### Sending SMS to a Multiple Phone with Laravel
+### # Sending SMS to a Multiple Phone with Laravel
 
 ```php
 use Illuminate\Support\Facades\Http;
@@ -80,10 +154,8 @@ $response = Http::withHeaders([
 ```
 
 
-### 2. Java
----
-
-#### Sending SMS to a Single Phone with Java
+## Java
+### # Sending SMS to a Single Phone with Java
 ```java
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -115,7 +187,7 @@ public class SmsService {
 }
 
 ```
-#### Sending SMS to a Multiple Phone with Java
+### # Sending SMS to a Multiple Phone with Java
 ```java
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -148,228 +220,340 @@ public class SmsService {
 }
 ```
 
-### 3. Flutter (Dart)
----
+## Go
+### # Sending SMS to a Single Phone with Go
+```go
+package main
 
-#### Sending SMS to a Single Phone with flutter
-```dart
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import (
+    "fmt"
+    "strings"
+    "net/http"
+    "io/ioutil"
+)
 
-class SmsScreen extends StatelessWidget {
-  void sendSmsToSinglePhone() async {
-    final url = Uri.parse('your_single_url');
-    final headers = {'Content-Type': 'application/json'};
-    final data = {
-      'username': 'your_username',
-      'password': 'your_password',
-      'to': '2519xxxxxxxxx',
-      'message': 'your_message',
-    };
+func main() {
 
-    final response = await http.post(url, headers: headers, body: data);
+    url := "your_single_url"
+    method := "POST"
 
-    // Handle the response as needed
-    final responseData = json.decode(response.body);
-    print(responseData);
+    payload := strings.NewReader(`{`+"
+        "+`
+        "username": "your_username",`+"
+    "+`
+        "password": "your_password",`+"
+    "+`
+        "to": "9xxxxxxxxx", `+"
+    "+`
+        "text": "your_message"`+"
+    "+`
+    }`)
+
+  client := &http.Client {
   }
+  req, err := http.NewRequest(method, url, payload)
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Send SMS')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: sendSmsToSinglePhone,
-          child: Text('Send SMS to Single Phone'),
-        ),
-      ),
-    );
+  if err != nil {
+    fmt.Println(err)
+    return
   }
+  req.Header.Add("Content-Type", "application/json")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
 }
+```
+### # Sending SMS to a Multiple Phone with Go
+```go
+package main
 
-void main() {
-  runApp(MaterialApp(home: SmsScreen()));
+import (
+  "fmt"
+  "strings"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "your_list_url"
+  method := "POST"
+
+  payload := strings.NewReader(`{`+"
+  "+`
+        "username": "your_username",`+"
+  "+`
+        "password": "your_password",`+"
+  "+`
+        "to": ["9xxxxxxxxx", "9xxxxxxxxx", "9xxxxxxxxx"], `+"
+  "+`
+        "text": "your_message"`+"
+  "+`
+  }`)
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/json")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
 }
 ```
 
-#### Sending SMS to a Multiple Phone with flutter
-```dart
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+## Python
+### # Sending SMS to a Single Phone with Python
+```python
+import http.client
+import json
 
-class SmsScreen extends StatelessWidget {
-  void sendSmsToMultiplePhones() async {
-    final url = Uri.parse('your_list_url');
-    final headers = {'Content-Type': 'application/json'};
-    final data = {
-      'username': 'your_username',
-      'password': 'your_password',
-      'to': ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-      'message': 'your_message',
-    };
-
-    final response = await http.post(url, headers: headers, body: json.encode(data));
-
-    // Handle the response as needed
-    final responseData = json.decode(response.body);
-    print(responseData);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Send SMS')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: sendSmsToMultiplePhones,
-          child: Text('Send SMS to Multiple Phones'),
-        ),
-      ),
-    );
-  }
+conn = http.client.HTTPSConnection("your_single_url")
+payload = json.dumps({
+  "username": "your_username",
+  "password": "your_password",
+  "to": "9xxxxxxxxx",
+  "text": "your_message"
+})
+headers = {
+  'Content-Type': 'application/json'
 }
+conn.request("POST", "/", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
 
-void main() {
-  runApp(MaterialApp(home: SmsScreen()));
+### # Sending SMS to Multiple Phone with Python
+```python
+import http.client
+import json
+
+conn = http.client.HTTPSConnection("your_list_url")
+payload = json.dumps({
+  "username": "your_username",
+  "password": "your_password",
+  "to": [
+    "9xxxxxxxxx",
+    "9xxxxxxxxx",
+    "9xxxxxxxxx"
+  ],
+  "text": "your_message"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+conn.request("POST", "/", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+## Dart
+
+### # Sending SMS to a Single Phone with Dart
+```dart
+var headers = {
+  'Content-Type': 'application/json'
+};
+var request = http.Request('POST', Uri.parse('your_single_url'));
+request.body = json.encode({
+  "username": "your_username",
+  "password": "your_password",
+  "to": "9xxxxxxxxx",
+  "text": "your_message"
+});
+request.headers.addAll(headers);
+
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+  print(await response.stream.bytesToString());
+}
+else {
+  print(response.reasonPhrase);
 }
 ```
 
-### 4. JavaScript (with `fetch`)
----
+### # Sending SMS to a Multiple Phone with Dart
+```dart
+var headers = {
+  'Content-Type': 'application/json'
+};
+var request = http.Request('POST', Uri.parse('your_list_url'));
+request.body = json.encode({
+  "username": "your_username",
+  "password": "your_password",
+  "to": [
+    "9xxxxxxxxx",
+    "9xxxxxxxxx",
+    "9xxxxxxxxx"
+  ],
+  "text": "your_message"
+});
+request.headers.addAll(headers);
 
-#### Sending SMS to a Single Phone with javascript
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+  print(await response.stream.bytesToString());
+}
+else {
+  print(response.reasonPhrase);
+}
+
+```
+
+## JavaScript
+### # Sending SMS to a Single Phone with javascript
 
 ```js
-function sendSmsToSinglePhone() {
-    const url = 'your_single_url';
-    const data = {
-        username: 'your_username',
-        password: 'your_password',
-        to: '2519xxxxxxxxx',
-        message: 'your_message',
-    };
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-        .then(response => response.json())
-        .then(responseData => {
-            // Handle the response data
-        })
-        .catch(error => {
-            // Handle errors
-        });
-}
-sendSmsToSinglePhone();
+var raw = JSON.stringify({
+    "username": "your_username",
+    "password": "your_password",
+    "to": "9xxxxxxxxx",
+    "text": "your_message"
+});
+
+var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("your_single_url", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 ```
-#### Sending SMS to a Multiple Phone with javascript
+### # Sending SMS to a Multiple Phone with javascript
 ```js
-function sendSmsToMultiplePhones() {
-    const url = 'your_list_url';
-    const data = {
-        username: 'your_username',
-        password: 'your_password',
-        to: ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-        message: 'your_message',
-    };
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-        .then(response => response.json())
-        .then(responseData => {
-            // Handle the response data
-        })
-        .catch(error => {
-            // Handle errors
-        });
-}
+var raw = JSON.stringify({
+    "username": "your_username",
+    "password": "your_password",
+    "to": [
+        "9xxxxxxxxx",
+        "9xxxxxxxxx",
+        "9xxxxxxxxx"
+    ],
+    "text": "your_message"
+});
 
-sendSmsToMultiplePhones();
+var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("your_list_url", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 ```
 
-### 5. PHP (with `curl`)
----
-#### Sending SMS to a Single Phone with PHP
+## PHP (with `curl`)
+### # Sending SMS to a Single Phone with PHP - curl
 
 ```php
 
 $url = 'your_single_url';
-$data = [
-    'username' => 'your_username',
-    'password' => 'your_password',
-    'to' => '251xxxxxxxxx',
-    'text' => 'your_message',
-];
-$jsonData = json_encode($data);
 
-$curlHandle = curl_init($url);
-curl_setopt($curlHandle, CURLOPT_POST, true);
-curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json',
-    'Content-Length: ' . strlen($jsonData)
-]);
+$curl = curl_init();
 
-curl_setopt($curlHandle, CURLOPT_POSTFIELDS,$jsonData);
-curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($curlHandle);
-curl_close($curlHandle);
+curl_setopt_array($curl, array(
+    CURLOPT_URL => 'your_single_url',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS =>'{
+      "username": "your_username",
+      "password": "your_password",
+      "to": "9xxxxxxxx", 
+      "text": "your_message"
+}',
+    CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+    ),
+));
 
+$response = curl_exec($curl);
+curl_close($curl);
 
-if ($response === false) {
-    echo 'Curl error: ' . curl_error($curlHandle);
-} else {
-    // Handle the response
-}
-
+echo $response;
 
 ```
-#### Sending SMS to a Multiple Phone with PHP
+### # Sending SMS to a Multiple Phone with PHP - curl
 ```php
-$url = 'your_list_url';
-$data = [
-    'username' => 'your_username',
-    'password' => 'your_password',
-    'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-    'text' => 'your_message',
-];
-$jsonData = json_encode($data);
+$curl = curl_init();
 
-$curlHandle = curl_init($url);
-curl_setopt($curlHandle, CURLOPT_POST, true);
-curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json',
-    'Content-Length: ' . strlen($jsonData)
-]);
+curl_setopt_array($curl, array(
+    CURLOPT_URL => 'your_list_url',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS =>'{
+      "username": "your_username",
+      "password": "your_password",
+      "to": ["9xxxxxxxxx", "9xxxxxxxxx", "9xxxxxxxxx"],
+      "text": "your_message"
+}',
+    CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+    ),
+));
 
-curl_setopt($curlHandle, CURLOPT_POSTFIELDS,$jsonData);
-curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($curlHandle);
-curl_close($curlHandle);
+$response = curl_exec($curl);
+curl_close($curl);
 
-
-if ($response === false) {
-    echo 'Curl error: ' . curl_error($curlHandle);
-} else {
-    // Handle the response
-}
+echo $response;
 ```
 
 
-### 6. PHP (with `file_get_contents()`)
----
-#### Sending SMS to a Single Phone with PHP file_get_contents()
+## PHP (with `file_get_contents()`)
+
+### # Sending SMS to a Single Phone with PHP - file_get_contents()
 
 ```php
 $url = 'your_single_url';
@@ -403,44 +587,36 @@ if ($response === false) {
 }
 ```
 
-#### Sending SMS to a Single Phone with PHP file_get_contents()
+### # Sending SMS to a Single Phone with PHP - file_get_contents()
 ```php
-$url = 'your_list_url';
-$data = [
-    'username' => 'your_username',
-    'password' => 'your_password',
-    'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-    'text' => 'your_message',
-];
+$data = json_encode(array(
+    "username" => "your_username",
+    "password" => "your_password",
+    "to" => ["9xxxxxxxxx", "9xxxxxxxxx", "9xxxxxxxxx"],
+    "text" => "your_message"
+));
 
-$jsonData = json_encode($data);
-
-$contextOptions = [
-    'http' => [
+$options = array(
+    'http' => array(
         'method' => 'POST',
-        'header' => [
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($jsonData)
-        ],
-        'content' => $jsonData
-    ]
-];
+        'header' => 'Content-Type: application/json',
+        'content' => $data
+    )
+);
 
-$context = stream_context_create($contextOptions);
-$response = file_get_contents($url, false, $context);
+$context = stream_context_create($options);
+$response = file_get_contents('your_list_url', false, $context);
 
 if ($response === false) {
-    echo 'Request failed';
+    echo "Error fetching data.";
 } else {
-    // Handle the response as needed
+    echo $response;
 }
 ```
 
 
-### 7. Spring Boot (Java)
----
-
-#### Sending SMS to a Single Phone with Spring Boot
+## Spring Boot (Java)
+### # Sending SMS to a Single Phone with Spring Boot
 ```java
 public void sendSMSRequest() throws ParseException {
 	RestTemplate restTemplate = new RestTemplate();
@@ -467,7 +643,7 @@ public void sendSMSRequest() throws ParseException {
 }
 ```
 
-#### Sending SMS to a Multiple Phone with Spring Boot
+### # Sending SMS to a Multiple Phone with Spring Boot
 ```java
 public void sendJsonRequest() throws ParseException {
 	RestTemplate restTemplate = new RestTemplate();
@@ -494,10 +670,39 @@ public void sendJsonRequest() throws ParseException {
 }
 ```
 
-### 8. Curl
----
+## CSharp (C#)
+### # Sending SMS to a Single Phone with Curl
+```c#
+var client = new HttpClient();
+var request = new HttpRequestMessage(HttpMethod.Post, "your_single_url");
 
-#### Sending SMS to a Single Phone with Curl
+var content = new StringContent("{\r\n      \"username\": \"your_username\",\r\n      \"password\": \"your_password\",\r\n      \"to\": \"9xxxxxxxxx\", \r\n      \"text\": \"your_message\"\r\n}", null, "application/json");
+
+request.Content = content;
+
+var response = await client.SendAsync(request);
+response.EnsureSuccessStatusCode();
+Console.WriteLine(await response.Content.ReadAsStringAsync());
+```
+### # Sending SMS to a Multiple Phone with Curl
+```c#
+var client = new HttpClient();
+var request = new HttpRequestMessage(HttpMethod.Post, "your_list_url");
+
+var content = new StringContent("{\r\n      \"username\": \"your_username\",\r\n      \"password\": \"your_password\",\r\n      \"to\": [\"9xxxxxxxxx\", \"9xxxxxxxxx\", \"9xxxxxxxxx\"], \r\n      \"text\": \"your_message\"\r\n}", null, "application/json");
+
+request.Content = content;
+
+var response = await client.SendAsync(request);
+response.EnsureSuccessStatusCode();
+Console.WriteLine(await response.Content.ReadAsStringAsync());
+```
+
+
+## Curl
+
+
+### # Sending SMS to a Single Phone with Curl
 
 ```php
 curl -X POST "your_single_url" \
@@ -508,7 +713,7 @@ curl -X POST "your_single_url" \
      -d "message=your_message"
 ```
 
-#### Sending SMS to a Multiple Phone with Curl
+### # Sending SMS to a Multiple Phone with Curl
 
 ```php
 curl -X POST "your_list_url" \
@@ -522,8 +727,8 @@ curl -X POST "your_list_url" \
 ```
 
 
-## Customization
----
+# Customization
+
 
 - Depending on your SMS service credential, you need to change the following placeholders:
   - your_single_url
