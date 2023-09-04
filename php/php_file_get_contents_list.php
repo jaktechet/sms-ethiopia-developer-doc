@@ -1,31 +1,25 @@
 <?php
 
-$url = 'your_list_url';
-$data = [
-    'username' => 'your_username',
-    'password' => 'your_password',
-    'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-    'text' => 'your_message',
-];
+$data = json_encode(array(
+    "username" => "your_username",
+    "password" => "your_password",
+    "to" => ["9xxxxxxxxx", "9xxxxxxxxx", "9xxxxxxxxx"],
+    "text" => "your_message"
+));
 
-$jsonData = json_encode($data);
-
-$contextOptions = [
-    'http' => [
+$options = array(
+    'http' => array(
         'method' => 'POST',
-        'header' => [
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($jsonData)
-        ],
-        'content' => $jsonData
-    ]
-];
+        'header' => 'Content-Type: application/json',
+        'content' => $data
+    )
+);
 
-$context = stream_context_create($contextOptions);
-$response = file_get_contents($url, false, $context);
+$context = stream_context_create($options);
+$response = file_get_contents('your_list_url', false, $context);
 
 if ($response === false) {
-    echo 'Request failed';
+    echo "Error fetching data.";
 } else {
-    // Handle the response as needed
+    echo $response;
 }

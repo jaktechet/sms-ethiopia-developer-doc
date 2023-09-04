@@ -1,6 +1,8 @@
-curl -X POST "your_single_url" \
-     -H "Content-Type: application/json" \
-     -d "username=your_username" \
-     -d "password=your_password" \
-     -d "to=2519xxxxxxxxx" \
-     -d "message=your_message"
+curl --location 'your_single_url' \
+    --header 'Content-Type: application/json' \
+    --data '{
+          "username": "your_username",
+          "password": "your_password",
+          "to": "9xxxxxxxxx",
+          "text": "your_message"
+    }'

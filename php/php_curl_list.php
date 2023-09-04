@@ -1,30 +1,28 @@
 <?php
 
-$url = 'your_list_url';
-$data = [
-    'username' => 'your_username',
-    'password' => 'your_password',
-    'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-    'text' => 'your_message',
-];
-$jsonData = json_encode($data);
+$curl = curl_init();
 
-$curlHandle = curl_init($url);
-curl_setopt($curlHandle, CURLOPT_POST, true);
-curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json',
-    'Content-Length: ' . strlen($jsonData)
-]);
+curl_setopt_array($curl, array(
+    CURLOPT_URL => 'your_list_url',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS =>'{
+      "username": "your_username",
+      "password": "your_password",
+      "to": ["9xxxxxxxxx", "9xxxxxxxxx", "9xxxxxxxxx"], 
+      "text": "your_message"
+}',
+    CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+    ),
+));
 
-curl_setopt($curlHandle, CURLOPT_POSTFIELDS,$jsonData);
-curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($curlHandle);
-curl_close($curlHandle);
+$response = curl_exec($curl);
 
-
-if ($response === false) {
-    echo 'Curl error: ' . curl_error($curlHandle);
-} else {
-    // Handle the response
-}
-
+curl_close($curl);
+echo $response;

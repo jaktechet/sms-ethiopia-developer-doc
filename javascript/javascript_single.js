@@ -1,27 +1,21 @@
-function sendSmsToSinglePhone() {
-    const url = 'your_single_url';
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-    const data = {
-        username: 'your_username',
-        password: 'your_password',
-        to: '2519xxxxxxxxx',
-        message: 'your_message',
-    };
+var raw = JSON.stringify({
+    "username": "your_username",
+    "password": "your_password",
+    "to": "9xxxxxxxxx",
+    "text": "your_message"
+});
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-        .then(response => response.json())
-        .then(responseData => {
-            // Handle the response data
-        })
-        .catch(error => {
-            // Handle errors
-        });
-}
-sendSmsToSinglePhone();
+var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+};
+
+fetch("your_single_url", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
