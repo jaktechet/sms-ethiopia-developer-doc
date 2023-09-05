@@ -2,49 +2,55 @@ package main
 
 import (
     "fmt"
-    "strings"
     "net/http"
+    "bytes"
+    "encoding/json"
     "io/ioutil"
 )
 
-func main() {
+type Message struct {
+    Username string `json:"username"`
+    Password string `json:"password"`
+    To       string `json:"to"`
+    Text     string `json:"text"`
+}
 
+func main() {
     url := "your_single_url"
     method := "POST"
 
-    payload := strings.NewReader(`{`+"
-    "+`
-    "username": "your_username",`+"
-"+`
-    "password": "your_password",`+"
-"+`
-    "to": "9xxxxxxxxx", `+"
-"+`
-    "text": "your_message"`+"
-"+`
-}`)
+    message := Message{
+        Username: "your_username",
+        Password: "your_password",
+        To:       "9xxxxxxxx",
+        Text:     "your_message",
+    }
 
-  client := &http.Client {
-  }
-  req, err := http.NewRequest(method, url, payload)
+    payload, err := json.Marshal(message)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
 
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-  req.Header.Add("Content-Type", "application/json")
+    client := &http.Client{}
+    req, err := http.NewRequest(method, url, bytes.NewReader(payload))
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    req.Header.Add("Content-Type", "application/json")
 
-  res, err := client.Do(req)
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-  defer res.Body.Close()
+    res, err := client.Do(req)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    defer res.Body.Close()
 
-  body, err := ioutil.ReadAll(res.Body)
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-  fmt.Println(string(body))
+    body, err := ioutil.ReadAll(res.Body)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println(string(body))
 }
