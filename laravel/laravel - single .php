@@ -9,5 +9,5 @@ $response = Http::withHeaders([
     'username' => 'your_username',
     'password' => 'your_password',
     'to' => ['2519xxxxxxxxx', '2519xxxxxxxxx', '2519xxxxxxxxx'],
-    'message' => 'your_message',
+    'text' => 'your_message',
 ]);
