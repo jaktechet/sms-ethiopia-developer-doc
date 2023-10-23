@@ -12,9 +12,9 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => 'POST',
     CURLOPT_POSTFIELDS =>'{
-      "username": "MMOGHB46645",
-      "password": "f(SvaHTg6Kfm8jd22XhblV3(mq/xHD",
-      "to": "942533215", 
+      "username": "your_username",
+      "password": "your_password",
+      "to": "9xxxxxxxxx", 
       "text": "your_message"
 }',
     CURLOPT_HTTPHEADER => array(
@@ -23,6 +23,6 @@ curl_setopt_array($curl, array(
 ));
 
 $response = curl_exec($curl);
-
 curl_close($curl);
+
 echo $response;
